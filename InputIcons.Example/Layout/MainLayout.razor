@@ -1,0 +1,28 @@
+﻿@inherits LayoutComponentBase
+@using InputIcons
+<div class="page" xmlns="http://www.w3.org/1999/html">
+    <div class="sidebar">
+        <NavMenu/>
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
+
+        <span style="display:inline-flex;align-items: center;">
+            <InputIcon Key="CTRL"/>&nbsp;+&nbsp;<InputIcon Key="A"/>
+        </span>
+        
+        <p>
+            This is what <br/>
+            Regular <kbd>KBD</kbd> + <kbd>Style</kbd> <br/>
+            in a paragraph.<br/>
+            New line test.
+        </p>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
