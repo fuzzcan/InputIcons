@@ -1,10 +1,10 @@
 .input-icons-key {
     display: inline-block;
-    padding: 2px 5px 14px 5px;
-    background: linear-gradient(135deg, #555555, #333333);
+    padding: 3px 6px 14px 6px;
+    background: linear-gradient(135deg, #555555, #222222);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: /*  */ inset -2px -2px 8px rgba(0, 0, 0, .2);
+    box-shadow: /*  */ inset -2px -2px 4px rgba(0, 0, 0, .5);
 }
 
 .input-icons-key-face {
@@ -14,15 +14,17 @@
     font-size: 14px;
     font-family: Arial, sans-serif;
     color: #fff;
-    background: linear-gradient(315deg, #555555, #333333); /* Inner gradient */
-    border-radius: 7px;
+    background: linear-gradient(315deg, #666666, #444444); /* Inner gradient */
+    border-radius: 9px;
     text-align: center;
-    box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.1),
-   1px 1px 2px rgba(255, 255, 255, 0.05),
-        /* Top left inner highlight */ inset 1px 1px 1px #555555,
-        /* Bottom left inner highlight */ inset -1px -1px 10px rgba(255, 255, 255, 0.05),
-        /* Top left outer highlight */ -4px -4px 8px #444444,
-        /* Bottom right outer highlight */ 2px 2px 8px #444444;
+    box-shadow: 
+                
+        /*1px 1px 2px rgba(255, 255, 255, 0.05),*/ /* Top left outer highlight */ 0px 0px 4px #555555,
+        /* Top left inner highlight */ inset 0px 0px 4px #555555,
+
+                inset 2px 2px 8px #333333;
+    /*inset -2px -2px 8px #555555;*/
+    /*border: 1px solid #555555;*/
 }
 
 .input-icons-key-face kbd {
