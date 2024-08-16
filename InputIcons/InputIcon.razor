@@ -1,9 +1,28 @@
-﻿<div class="input-icons-key">
-    <div class="input-icons-key-face">
+﻿<div class="@OuterClass">
+    <div class="@InnerClass">
         <kbd>@Key</kbd>
     </div>
 </div>
 
 @code {
+
+    public enum IconSize
+    {
+        Small,
+        Large
+    }
+
     [Parameter] public string? Key { get; set; }
+    [Parameter] public IconSize Size { get; set; } = IconSize.Small;
+
+    private string OuterClass
+    {
+        get { return "input-icons-key"; }
+    }
+
+    private string InnerClass
+    {
+        get { return "input-icons-key-face"; }
+    }
+
 }

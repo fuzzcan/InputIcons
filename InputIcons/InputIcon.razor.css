@@ -7,6 +7,15 @@
     box-shadow: /*  */ inset -2px -2px 4px rgba(0, 0, 0, .5);
 }
 
+.input-icons-key-sm {
+    display: inline-block;
+    padding: 1px 1px 2px 1px;
+    background: linear-gradient(135deg, #555555, #222222);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: /*  */ inset -2px -2px 4px rgba(0, 0, 0, .5);
+}
+
 .input-icons-key-face {
     display: inline-block;
     padding: 4px 6px;
@@ -17,12 +26,26 @@
     background: linear-gradient(315deg, #666666, #444444); /* Inner gradient */
     border-radius: 9px;
     text-align: center;
-    box-shadow: 
-                
-        /*1px 1px 2px rgba(255, 255, 255, 0.05),*/ /* Top left outer highlight */ 0px 0px 4px #555555,
+    box-shadow: /*1px 1px 2px rgba(255, 255, 255, 0.05),*/ /* Top left outer highlight */ 0px 0px 4px #555555,
         /* Top left inner highlight */ inset 0px 0px 4px #555555,
+    inset 2px 2px 8px #333333;
+    /*inset -2px -2px 8px #555555;*/
+    /*border: 1px solid #555555;*/
+}
 
-                inset 2px 2px 8px #333333;
+.input-icons-key-face-sm{
+    display: inline-block;
+    padding: 0 6px;
+    min-width: 32px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background: linear-gradient(315deg, #666666, #444444); /* Inner gradient */
+    border-radius: 9px;
+    text-align: center;
+    box-shadow: /*1px 1px 2px rgba(255, 255, 255, 0.05),*/ /* Top left outer highlight */ 0px 0px 4px #555555,
+        /* Top left inner highlight */ inset 0px 0px 4px #555555,
+    inset 2px 2px 8px #333333;
     /*inset -2px -2px 8px #555555;*/
     /*border: 1px solid #555555;*/
 }
@@ -34,4 +57,14 @@
     padding: 0;
     margin: 0;
     display: inline-block;
+}
+
+.input-icons-container {
+    display: inline-flex;
+    align-items: center;
+    background-color: #6a1a21;
+}
+
+kbd {
+    background: linear-gradient(135deg, #FF0000, #222222);
 }
