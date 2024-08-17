@@ -1,4 +1,5 @@
 ﻿@using System.Linq.Expressions
+
 <div class="@OuterClass">
     <div class="@InnerClass">
         <kbd>@Key</kbd>
@@ -6,37 +7,28 @@
 </div>
 
 @code {
-
-    public enum IconSize
-    {
-        Small,
-        Large
-    }
-
+    [CascadingParameter] public IconSize? CascadingSize { get; set; }
     [Parameter] public string? Key { get; set; }
-    [Parameter] public IconSize Size { get; set; } = IconSize.Small;
+    [Parameter] public IconSize? Size { get; set; }
 
     private string OuterClass
     {
-        get { return $"input-icons__key input-icons__key{(Size == IconSize.Small ? "-sm" : "-lg")}"; }
-    }
-
-    private string InnerClass
-    {
-        get { return "input-icons__key-face"; }
-    }
-
-    private string SizeToClassModifier(IconSize size)
-    {
-        switch (size)
-        {
-            case IconSize.Small:
-                return "-sm";
-            case IconSize.Large:
-                return "-lg";
-            default:
-                return "";
+        get 
+        { 
+            var size = Size ?? CascadingSize ?? IconSize.Small; 
+            return $"input-icons__key input-icons__key{SizeToClassModifier(size)}";
         }
     }
 
+    private string InnerClass => "input-icons__key-face";
+
+    private string SizeToClassModifier(IconSize size)
+    {
+        return size switch
+        {
+            IconSize.Small => "-sm",
+            IconSize.Large => "-lg",
+            _ => ""
+        };
+    }
 }

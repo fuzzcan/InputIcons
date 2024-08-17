@@ -1,6 +1,7 @@
 ﻿namespace InputIcons;
 
-public class IconSize
+public enum IconSize
 {
-    
+    Small,
+    Large
 }
