@@ -1,0 +1,8 @@
+﻿<CascadingValue Value="Size">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter] public IconSize? Size { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}
