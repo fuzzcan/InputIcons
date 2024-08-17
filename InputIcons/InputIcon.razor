@@ -1,4 +1,5 @@
-﻿<div class="@OuterClass">
+﻿@using System.Linq.Expressions
+<div class="@OuterClass">
     <div class="@InnerClass">
         <kbd>@Key</kbd>
     </div>
@@ -17,12 +18,25 @@
 
     private string OuterClass
     {
-        get { return "input-icons-key"; }
+        get { return $"input-icons__key input-icons__key{(Size == IconSize.Small ? "-sm" : "-lg")}"; }
     }
 
     private string InnerClass
     {
-        get { return "input-icons-key-face"; }
+        get { return "input-icons__key-face"; }
+    }
+
+    private string SizeToClassModifier(IconSize size)
+    {
+        switch (size)
+        {
+            case IconSize.Small:
+                return "-sm";
+            case IconSize.Large:
+                return "-lg";
+            default:
+                return "";
+        }
     }
 
 }
