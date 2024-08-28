@@ -1,20 +1,67 @@
+.input-icons__key-layer {
+    position: absolute;
+    inset: 0;
+}
+
 .input-icons__key {
     display: inline-block;
-    padding: .2em .4em .9em .4em;
-    background: linear-gradient(135deg, #555555, #222222);
-    border-radius: .7em;
+    padding: .2em .4em .8em .4em;
     overflow: hidden;
-    box-shadow: inset -.2em -.2em .4em rgba(0, 0, 0, .2);
+    position: relative;
+}
+
+.input-icons__key-roundness {
+    border-radius: .7em;
+}
+
+.input-icons__key-highlight {
+    background: linear-gradient(135deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
+}
+
+.input-icons__key-shadow {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .3));
 }
 
 .input-icons__key-face {
-    padding: .15em .4em;
-    min-width: 2em;
+    padding: .1em .6em;
     color: #fff;
-    background: linear-gradient(315deg, #666666, #444444);
-    border-radius: .6em;
     text-align: center;
-    box-shadow: 0 0 .2em #555555, inset 0 0 .3em #555555, inset .2em .2em .8em #333333;
+    position: relative;
+}
+
+.input-icons__key-face-roundness {
+    border-radius: .6em
+}
+
+.input-icons__key-face kbd {
+    position: relative;
+    font-size: inherit;
+    font-weight: bolder;
+    top: -0.05em;
+    color: #eeeeee;
+    padding: 0;
+    background: none;
+}
+
+.input-icons-container {
+    display: inline-flex;
+    align-items: center;
+    background-color: #6a1a21;
+}
+
+.input-icons__key-face-rim {
+    --highlight: rgba(255, 255, 255, 1);
+    --shadow: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 .2em var(--highlight),
+    inset 0 0 .4em var(--highlight);
+}
+
+.input-icons__key-face-highlight {
+    background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .2));
+}
+
+.input-icons__key-face-shadow {
+    background: linear-gradient(135deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
 }
 
 .input-icons__key-xs {
@@ -27,20 +74,4 @@
 
 .input-icons__key-lg {
     font-size: 1.2em;
-}
-
-.input-icons__key-face kbd {
-    position: relative;
-    font-size: inherit;
-    font-weight: bolder;
-    top:-0.05em;
-    color:#eeeeee;
-    padding: 0;
-    background: none;
-}
-
-.input-icons-container {
-    display: inline-flex;
-    align-items: center;
-    background-color: #6a1a21;
 }

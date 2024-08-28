@@ -1,26 +1,53 @@
 ﻿@using System.Linq.Expressions
+@using System.Drawing
 
-<div class="@OuterClass">
-    <div class="@InnerClass">
-        <kbd>@Key</kbd>
+
+<div class="@BaseCss @BaseRoundness" style="background:@Color.ToCss()">
+    @* <div class="@KeyLayer @BaseHighlight @BaseRoundness"></div> *@
+    <div class="@KeyLayer @BaseShadow @BaseRoundness"></div>
+    <div class="@FaceCss @FaceRoundness" style="background:@Color.ToCss()">
+        <div class="@KeyLayer @FaceRoundness"></div>
+        <div class="@KeyLayer @FaceRoundness"></div>
+        <div class="@KeyLayer @FaceHighlight @FaceRoundness"></div>
+        @* <div class="@KeyLayer @FaceShadow @FaceRoundness"></div> *@
+        <div class="@KeyLayer @FaceRim @FaceRoundness"></div>
+        @if (DisableKbdElement)
+        {
+            @Key
+        }
+        else
+        {
+            <kbd>@Key</kbd>
+        }
     </div>
 </div>
 
 @code {
+    [Parameter] public IconSize? Size { get; set; }
     [CascadingParameter] public IconSize? CascadingSize { get; set; }
     [Parameter] public string? Key { get; set; }
-    [Parameter] public IconSize? Size { get; set; }
+    [Parameter] public bool DisableKbdElement { get; set; } = false;
+    [Parameter] public Color Color { get; set; } = Color.Bisque;
 
-    private string OuterClass
+    private string BaseCss
     {
-        get 
-        { 
-            var size = Size ?? CascadingSize ?? IconSize.Small; 
+        get
+        {
+            var size = Size ?? CascadingSize ?? IconSize.Small;
             return $"input-icons__key input-icons__key{SizeToClassModifier(size)}";
         }
     }
 
-    private string InnerClass => "input-icons__key-face";
+    private string KeyLayer => "input-icons__key-layer";
+    private string BaseRoundness => "input-icons__key-roundness";
+    private string BaseHighlight => "input-icons__key-highlight";
+    private string BaseShadow => "input-icons__key-shadow";
+    private string FaceCss => "input-icons__key-face";
+    private string FaceRoundness => "input-icons__key-face-roundness";
+    private string FaceShape => "input-icons__key-face-shape";
+    private string FaceRim => "input-icons__key-face-rim";
+    private string FaceHighlight => "input-icons__key-face-highlight";
+    private string FaceShadow => "input-icons__key-face-shadow";
 
     private string SizeToClassModifier(IconSize size)
     {
@@ -31,4 +58,5 @@
             _ => ""
         };
     }
+
 }
