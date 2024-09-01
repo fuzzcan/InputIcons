@@ -4,25 +4,21 @@ namespace InputIcons.Utilities;
 
 public class ColorScheme
 {
-    public HslaColor Highlight { get; set; }
-    public readonly int HighlightLightness = 30;
     public HslaColor Lighter { get; set; }
-    public readonly int LighterLightness = 20;
+    public readonly int LighterLightness = 15;
     public HslaColor Light { get; set; }
     public readonly int LightLightness = 10;
     public HslaColor Neutral { get; set; }
     public readonly int NeutralLightness = 0;
     public HslaColor Dark { get; set; }
-    public readonly int DarkLightness = -10;
+    public readonly int DarkLightness = -5;
     public HslaColor Darker { get; set; }
-    public readonly int DarkerLightness = -20;
+    public readonly int DarkerLightness = -25;
 
 
     public ColorScheme(Color color)
     {
         var c = color.ToHsla();
-        c.Lightness = 50;
-        Highlight = c.Clone().AdjustLightness(HighlightLightness);
         Lighter = c.Clone().AdjustLightness(LighterLightness);
         Light = c.Clone().AdjustLightness(LightLightness);
         Neutral = c.Clone().AdjustLightness(NeutralLightness);
@@ -37,14 +33,25 @@ public class ColorScheme
 
 
     public string BaseGradient =>
-        $"background: linear-gradient(135deg, {Light}, {Darker});";
+        $"background: linear-gradient(135deg, {Lighter}, {Darker});";
 
     public string BaseShadow =>
-        $"box-shadow: inset -.2em -.2em .4em rgba(0,0,0,0.2);";
+        $"box-shadow: inset -.2em -.2em .4em {Darker};";
 
     public string FaceGradient =>
-        $"background: linear-gradient(315deg, {Highlight}, {Light});";
+        $"background: linear-gradient(135deg, {Dark}, {Light});";
 
     public string FaceShadow =>
         $"box-shadow: 0 0 .3em rgba(255,255,255,.5), inset 0 0 .5em rgba(255,255,255,.5), inset .2em .2em .8em rgba(0,0,0,.5);";
+
+    public string FaceRim
+    {
+        get
+        {
+            var inner = $"inset 0 0 .4em {Lighter}";
+            var outer = $".0em .0em .1em {Lighter}"; 
+            var bottomRight = $".1em .1em .3em {Neutral}";
+            return $"box-shadow: {inner},{outer},{bottomRight};";
+        }
+    }
 }

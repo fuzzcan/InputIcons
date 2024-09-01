@@ -5,32 +5,21 @@
 
 .input-icons__key {
     display: inline-block;
-    padding: .2em .4em .8em .4em;
+    padding: .3em .6em .9em .6em;
     overflow: hidden;
     position: relative;
-}
+    clip-path:url("#roundedTrapezoid");
 
-.input-icons__key-roundness {
-    border-radius: .7em;
-}
-
-.input-icons__key-highlight {
-    background: linear-gradient(135deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
-}
-
-.input-icons__key-shadow {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .3));
 }
 
 .input-icons__key-face {
     padding: .1em .6em;
-    color: #fff;
     text-align: center;
     position: relative;
 }
 
 .input-icons__key-face-roundness {
-    border-radius: .6em
+    border-radius:.4em;
 }
 
 .input-icons__key-face kbd {
@@ -38,7 +27,6 @@
     font-size: inherit;
     font-weight: bolder;
     top: -0.05em;
-    color: #eeeeee;
     padding: 0;
     background: none;
 }
@@ -54,14 +42,6 @@
     --shadow: rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 .2em var(--highlight),
     inset 0 0 .4em var(--highlight);
-}
-
-.input-icons__key-face-highlight {
-    background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .2));
-}
-
-.input-icons__key-face-shadow {
-    background: linear-gradient(135deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
 }
 
 .input-icons__key-xs {

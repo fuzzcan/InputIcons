@@ -1,16 +1,18 @@
 ﻿@using System.Linq.Expressions
 @using System.Drawing
+@using System.Security.Cryptography
+@using InputIcons.Utilities
 
 
-<div class="@BaseCss @BaseRoundness" style="background:@Color.ToCss()">
+<div class="@BaseCss" style="@ColorScheme?.BaseGradient">
     @* <div class="@KeyLayer @BaseHighlight @BaseRoundness"></div> *@
-    <div class="@KeyLayer @BaseShadow @BaseRoundness"></div>
-    <div class="@FaceCss @FaceRoundness" style="background:@Color.ToCss()">
-        <div class="@KeyLayer @FaceRoundness"></div>
-        <div class="@KeyLayer @FaceRoundness"></div>
-        <div class="@KeyLayer @FaceHighlight @FaceRoundness"></div>
+    @* <div class="@KeyLayer @BaseShadow @BaseRoundness"></div> *@
+    <div class="@FaceCss @FaceRoundness" style="@ColorScheme?.FaceGradient">
+        @* <div class="@KeyLayer @FaceRoundness"></div> *@
+        @* <div class="@KeyLayer @FaceRoundness"></div> *@
+        @* <div class="@KeyLayer @FaceHighlight @FaceRoundness"></div> *@
         @* <div class="@KeyLayer @FaceShadow @FaceRoundness"></div> *@
-        <div class="@KeyLayer @FaceRim @FaceRoundness"></div>
+        <div class="@KeyLayer @FaceRoundness" style="@ColorScheme?.FaceRim"></div>
         @if (DisableKbdElement)
         {
             @Key
@@ -21,13 +23,37 @@
         }
     </div>
 </div>
+<svg width="0" height="0">
+    <defs>
+        <clipPath id="roundedTrapezoid" clipPathUnits="objectBoundingBox">
+            <path d="@Trapezoid.SvgPath"/>
+        </clipPath>
+    </defs>
+</svg>
 
 @code {
-    [Parameter] public IconSize? Size { get; set; }
-    [CascadingParameter] public IconSize? CascadingSize { get; set; }
     [Parameter] public string? Key { get; set; }
     [Parameter] public bool DisableKbdElement { get; set; } = false;
+    [Parameter] public IconSize? Size { get; set; }
+    [CascadingParameter] public IconSize? CascadingSize { get; set; }
     [Parameter] public Color Color { get; set; } = Color.Bisque;
+    [CascadingParameter] public ColorScheme? CascadingColorScheme { get; set; }
+    [Parameter] public ColorScheme? ColorScheme { get; set; }
+
+    public RoundedTrapezoid Trapezoid => new RoundedTrapezoid(.8f,
+        1f, .05f, .05f);
+
+    protected override void OnInitialized()
+    {
+        ColorScheme ??= CascadingColorScheme ?? new ColorScheme(Color);
+    }
+
+    private void InitializeColorScheme()
+    {
+        if (CascadingColorScheme != null)
+        {
+        }
+    }
 
     private string BaseCss
     {
@@ -40,14 +66,8 @@
 
     private string KeyLayer => "input-icons__key-layer";
     private string BaseRoundness => "input-icons__key-roundness";
-    private string BaseHighlight => "input-icons__key-highlight";
-    private string BaseShadow => "input-icons__key-shadow";
     private string FaceCss => "input-icons__key-face";
     private string FaceRoundness => "input-icons__key-face-roundness";
-    private string FaceShape => "input-icons__key-face-shape";
-    private string FaceRim => "input-icons__key-face-rim";
-    private string FaceHighlight => "input-icons__key-face-highlight";
-    private string FaceShadow => "input-icons__key-face-shadow";
 
     private string SizeToClassModifier(IconSize size)
     {

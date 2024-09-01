@@ -21,7 +21,7 @@
     public HslaColor AdjustLightness(int lightness)
     {
         Lightness = Clamp(Lightness + lightness, 0, 100);
-        return this; // Enable method chaining
+        return this; 
     }
 
     public HslaColor Clone()
