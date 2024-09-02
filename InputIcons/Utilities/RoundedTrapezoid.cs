@@ -2,15 +2,6 @@
 
 public class RoundedTrapezoid
 {
-    public float TopWidth { get; set; } = .75f;
-    public float TopCornerRadius { get; set; } = .05f;
-    public float BottomWidth { get; set; } = 1f;
-    public float BottomCornerRadius { get; set; } = .05f;
-    public Point TopLeft { get; set; }
-    public Point TopRight { get; set; }
-    public Point BottomLeft { get; set; }
-    public Point BottomRight { get; set; }
-
     public RoundedTrapezoid(float topWidth, float bottomWidth,
         float topCornerRadius, float bottomCornerRadius)
     {
@@ -24,29 +15,42 @@ public class RoundedTrapezoid
         BottomRight = new Point(1, 0);
     }
 
+    public float TopWidth { get; set; } = .75f;
+
+    /// <summary>
+    ///     Radius of top corners as a percentage of trapezoid height
+    /// </summary>
+    public float TopCornerRadius { get; set; } = .05f;
+
+    public float BottomWidth { get; set; } = 1f;
+
+    /// <summary>
+    ///     Radius of bottom corners as a percentage of trapezoid height
+    /// </summary>
+    public float BottomCornerRadius { get; set; } = .05f;
+
+    public Point TopLeft { get; set; }
+    public Point TopRight { get; set; }
+    public Point BottomLeft { get; set; }
+    public Point BottomRight { get; set; }
+
     public string SvgPath
     {
         get
         {
             var start = $"M {TopLeft.X + TopCornerRadius} {1 - TopLeft.Y}";
             var top = $"L {TopRight.X - TopCornerRadius} {1 - TopRight.Y}";
-            var right = $"L {BottomRight.X} {1 - BottomRight.Y}";
+            var topRightCorner =
+                $"Q {TopRight.SvgPoint} {Lerp(TopRight, BottomRight, TopCornerRadius).SvgPoint}";
+            var right =
+                $"L {Lerp(BottomRight, TopRight, BottomCornerRadius).SvgPoint}";
+            var bottomRightCorner =
+                $"Q {BottomRight.SvgPoint} {Lerp(BottomRight, BottomLeft, BottomCornerRadius).SvgPoint}";
             var bottom = $"L {BottomLeft.X} {1 - BottomLeft.Y}";
             var left = $"L {TopLeft.X} {1 - TopLeft.Y}";
-            var trapezoid = $"{start}\n {top}\n {right}\n {bottom}\n {left}\n";
+            var trapezoid =
+                $"{start}\n {top}\n {topRightCorner}\n {right}\n {bottomRightCorner}\n {bottom}\n {left}\n";
             return trapezoid;
-        }
-    }
-
-    public class Point
-    {
-        public float X { get; set; } = 0;
-        public float Y { get; set; } = 0;
-
-        public Point(float x, float y)
-        {
-            X = x;
-            Y = y;
         }
     }
 
@@ -55,5 +59,19 @@ public class RoundedTrapezoid
         var x = p1.X + (p2.X - p1.X) * t;
         var y = p1.Y + (p2.Y - p1.Y) * t;
         return new Point(x, y);
+    }
+
+    public class Point
+    {
+        public Point(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public float X { get; set; }
+        public float Y { get; set; }
+
+        public string SvgPoint => $"{X} {1 - Y}";
     }
 }

@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\InputIcons\InputIcons.csproj" />
+        <ProjectReference Include="..\InputIcons\InputIcons.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -5,21 +5,23 @@
 
 .input-icons__key {
     display: inline-block;
-    padding: .3em .6em .9em .6em;
+    padding: .2em .5em .7em .5em;
     overflow: hidden;
     position: relative;
-    clip-path:url("#roundedTrapezoid");
-
+    clip-path: url("#roundedTrapezoid");
 }
 
 .input-icons__key-face {
-    padding: .1em .6em;
+    width: 1.5em;
+    height: 1.5em;
     text-align: center;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .input-icons__key-face-roundness {
-    border-radius:.4em;
+    border-radius: .4em;
 }
 
 .input-icons__key-face kbd {
@@ -28,6 +30,7 @@
     font-weight: bolder;
     top: -0.05em;
     padding: 0;
+    margin: auto;
     background: none;
 }
 
@@ -44,14 +47,14 @@
     inset 0 0 .4em var(--highlight);
 }
 
-.input-icons__key-xs {
+.input-icons__key--xs {
     font-size: 0.5em;
 }
 
-.input-icons__key-sm {
+.input-icons__key--sm {
     font-size: 0.8em;
 }
 
-.input-icons__key-lg {
+.input-icons__key--lg {
     font-size: 1.2em;
 }

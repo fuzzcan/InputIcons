@@ -1,40 +1,40 @@
-﻿@using InputIcons
+﻿@page "/"
 @using System.Drawing
-@page "/"
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, InputIcons!</h1>
 
 <InputIconContainer >
-    <InputIcon Key="I" Color="@Color.Black"/>
-    <InputIcon Key="N" Color="@Color.Crimson"/>
-    <InputIcon Key="P" Color="@Color.DarkOliveGreen"/>
-    <InputIcon Key="U"/>
-    <InputIcon Key="T"/>
-    <InputIcon Key="I"/>
-    <InputIcon Key="C"/>
+    <InputIcon Text="I" Color="@Color.Black"/>
+    <InputIcon Text="N" Color="@Color.Crimson"/>
+    <InputIcon Text="P" Color="@Color.DarkOliveGreen"/>
+    <InputIcon Text="U" Color="@Color.FromArgb(1, 60, 60, 60)"/>
+    <InputIcon Text="T"/>
+    <InputIcon Text="I"/>
+    <InputIcon Text="C"/>
     <InputIconContainer Size="IconSize.Large">
-        <InputIcon Key="O"/>
-        <InputIcon Key="N"/>
-        <InputIcon Key="S"/>
+        <InputIcon Text="O"/>
+        <InputIcon Text="N"/>
+        <InputIcon Text="S"/>
     </InputIconContainer>
 </InputIconContainer>
 
 <div style="display:inline-block">
     <span class=".input-icons-container">
         Welcome to your new app.
-        <InputIcon Key="CTRL"/>&nbsp;+&nbsp;<InputIcon Key="A"/>
+        <InputIcon Text="CTRL"/>&nbsp;+&nbsp;<InputIcon Text="A"/>
     </span>
 </div>
 <InputIconContainer >
-    <InputIcon Key="CTRL" Size="IconSize.Large"/>
-    <InputIcon Key="CTRL"></InputIcon>
+    <InputIcon Text="C" Size="IconSize.Large"/>
+    <InputIcon Text="CT"></InputIcon>
 </InputIconContainer>
 
 <InputIconContainer Size="IconSize.Large">
-    <InputIcon Key="CTRL"></InputIcon>
-    <InputIcon Key="CTRL"></InputIcon>
+    <InputIcon Text="CTR"></InputIcon>
+    <InputIcon Text="CTRL"></InputIcon>
+    <InputIcon Text="CTRLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL" Color="@Color.Crimson"></InputIcon>
 </InputIconContainer>
 <p>
     This is what <br/>
