@@ -1,15 +1,20 @@
 ﻿using System.Drawing;
 
-namespace InputIcons.Utilities;
+namespace InputIcons;
 
 public class ColorScheme
 {
-    public readonly int DarkerLightness = -25;
-    public readonly int DarkLightness = -5;
+    public HslaColor Lighter { get; set; }
+    public HslaColor Light { get; set; }
+    public HslaColor Neutral { get; set; }
+    public HslaColor Dark { get; set; }
+    public HslaColor Darker { get; set; }
+
     public readonly int LighterLightness = 15;
     public readonly int LightLightness = 10;
     public readonly int NeutralLightness = 0;
-
+    public readonly int DarkLightness = -5;
+    public readonly int DarkerLightness = -15;
 
     public ColorScheme(Color color)
     {
@@ -26,33 +31,27 @@ public class ColorScheme
     {
     }
 
-    public HslaColor Lighter { get; set; }
-    public HslaColor Light { get; set; }
-    public HslaColor Neutral { get; set; }
-    public HslaColor Dark { get; set; }
-    public HslaColor Darker { get; set; }
 
+    public string BaseGradientCss =>
+        $"background: linear-gradient(135deg, {Lighter.Css}, {Darker.Css});";
 
-    public string BaseGradient =>
-        $"background: linear-gradient(135deg, {Lighter}, {Darker});";
+    public string BaseShadowCss =>
+        $"box-shadow: inset -.2em -.2em .4em {Darker.Css};";
 
-    public string BaseShadow =>
-        $"box-shadow: inset -.2em -.2em .4em {Darker};";
+    public string FaceGradientCss =>
+        $"background: linear-gradient(135deg, {Neutral.Css}, {Lighter.Css});";
 
-    public string FaceGradient =>
-        $"background: linear-gradient(135deg, {Dark}, {Light});";
+    public string FaceShadowCss =>
+        $"box-shadow: 0 0 .3em {Lighter.Css}";
 
-    public string FaceShadow =>
-        "box-shadow: 0 0 .3em rgba(255,255,255,.5), inset 0 0 .5em rgba(255,255,255,.5), inset .2em .2em .8em rgba(0,0,0,.5);";
-
-    public string FaceRim
+    public string FaceRimCss
     {
         get
         {
-            var inner = $"inset 0 0 .4em {Lighter}";
-            var outer = $".0em .0em .1em {Lighter}";
-            var bottomRight = $".1em .1em .3em {Neutral}";
-            return $"box-shadow: {inner},{outer},{bottomRight};";
+            var inner = $"inset 0 0 .2em {Lighter.Css}";
+            var outer = $".0em .0em .2em {Lighter.Css}";
+            var bottomRight = $".1em .1em .3em {Neutral.Css}";
+            return $"box-shadow: {inner}, {outer}, {bottomRight};";
         }
     }
 }

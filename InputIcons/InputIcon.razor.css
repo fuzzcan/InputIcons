@@ -52,9 +52,13 @@
 }
 
 .input-icons__key--sm {
-    font-size: 0.8em;
+    font-size: 0.75em;
+}
+
+.input-icons__key--sm {
+    font-size: 1em;
 }
 
 .input-icons__key--lg {
-    font-size: 1.2em;
+    font-size: 1.25em;
 }

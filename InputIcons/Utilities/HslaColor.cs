@@ -8,12 +8,12 @@
         Alpha = Clamp(alpha, 0, 1);
     }
 
-    public float Hue { get; set; } // 0 to 360
-    public float Saturation { get; set; } // 0 to 100
-    public float Lightness { get; set; } // 0 to 100
-    public float Alpha { get; set; } // 0 to 1
+    private float Hue { get; set; } // 0 to 360
+    private float Saturation { get; set; } // 0 to 100
+    private float Lightness { get; set; } // 0 to 100
+    private float? Alpha { get; set; } // 0 to 1
 
-    private float Clamp(float value, float min, float max)
+    private static float Clamp(float value, float min, float max)
     {
         return Math.Max(min, Math.Min(max, value));
     }
@@ -26,13 +26,12 @@
 
     public HslaColor Clone()
     {
-        return new HslaColor(Hue, Saturation, Lightness, Alpha);
+        var alpha = Alpha ?? 1;
+        return new HslaColor(Hue, Saturation, Lightness, alpha);
     }
 
-    public override string ToString()
-    {
-        return Alpha == 1
+    public string Css =>
+        Alpha == null
             ? $"hsl({Hue}, {Saturation}%, {Lightness:F0}%)"
             : $"hsla({Hue}, {Saturation}%, {Lightness}%, {Alpha:F2})";
-    }
 }
