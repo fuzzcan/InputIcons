@@ -31,16 +31,36 @@ public partial class InputIcon
     [CascadingParameter]
     public IconSize? CascadingSize { get; set; }
 
-    [Parameter] public Color Color { get; set; } = Color.Salmon;
-    [CascadingParameter] public ColorScheme? CascadingColorScheme { get; set; }
+    /// <summary>
+    /// Sets the <see cref="System.Drawing.Color"/> of the key
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; } = Color.Salmon;
+
+    /// <summary>
+    /// Optional parameter for inheriting parent's <see cref="ColorScheme"/>
+    /// </summary>
+    [CascadingParameter]
+    public ColorScheme? CascadingColorScheme { get; set; }
+
     [Parameter] public ColorScheme? ColorScheme { get; set; }
     [Parameter] public float FontWidthEm { get; set; } = 0.55f;
 
-    private RoundedTrapezoid Trapezoid => new(1f,
+    private RoundedTrapezoid Trapezoid => new(.9f,
         1f, .3f, .2f);
 
-    public string FaceWidth => $"width:{(Text.Length + 2) * FontWidthEm}em;";
-    public string FaceHeight => $"height:{FontWidthEm * 3}em;";
+    private EmUnit FaceWidth => new((Text.Length + 2) * FontWidthEm);
+
+    private string FaceWidthCss => $"width:{FaceWidth.Css};";
+    private EmUnit FaceHeight => new(FontWidthEm * 3);
+    private string FaceHeightCss => $"height:{FaceHeight.Css}";
+
+    private EmUnit BaseSidePadding = new(.5f);
+    private EmUnit TopPadding = new(.2f);
+    private EmUnit BottomPadding = new(.5f);
+
+    public float TotalWidth => FaceWidth + (BaseSidePadding * 2);
+    public float TotalHeight => FaceHeight + TopPadding + BottomPadding;
 
     protected override void OnInitialized()
     {
