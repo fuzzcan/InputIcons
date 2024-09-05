@@ -2,76 +2,104 @@
 
 public class RoundedTrapezoid
 {
-    public RoundedTrapezoid(float topWidth, float bottomWidth,
-        float topCornerRadius, float bottomCornerRadius)
+    public RoundedTrapezoid(float topIndentWidth, float bottomWidth,
+        float topCornerRadius, float bottomCornerRadius,
+        float heightToWidthRatio)
     {
-        TopWidth = topWidth;
+        HeightToWidthRatio = heightToWidthRatio;
+        OldTopWidth = 1 - topIndentWidth * 2;
+        TopWidth = 1 - topIndentWidth * 2 * heightToWidthRatio;
         BottomWidth = bottomWidth;
         TopCornerRadius = topCornerRadius;
         BottomCornerRadius = bottomCornerRadius;
-        TopLeft = new Point((1 - TopWidth) / 2, 1);
-        TopRight = new Point(1 - (1 - TopWidth) / 2, 1);
-        BottomLeft = new Point(0, 0);
-        BottomRight = new Point(1, 0);
+        InitializePoints();
     }
 
-    public float TopWidth { get; set; } = .75f;
-
-    /// <summary>
-    ///     Radius of top corners as a percentage of trapezoid height
-    /// </summary>
-    public float TopCornerRadius { get; set; } = .05f;
-
-    public float BottomWidth { get; set; } = 1f;
-
-    /// <summary>
-    ///     Radius of bottom corners as a percentage of trapezoid height
-    /// </summary>
-    public float BottomCornerRadius { get; set; } = .05f;
+    public float OldTopWidth { get; set; }
+    public float TopWidth { get; set; }
+    private float BottomWidth { get; set; }
+    private float TopCornerRadius { get; set; }
+    private float BottomCornerRadius { get; set; }
+    private float HeightToWidthRatio { get; set; }
 
     public Point TopLeft { get; set; }
-    public Point TopRight { get; set; }
-    public Point BottomLeft { get; set; }
-    public Point BottomRight { get; set; }
+    private Point TopRight { get; set; }
+    private Point BottomLeft { get; set; }
+    private Point BottomRight { get; set; }
 
-    public string SvgPath
+    /// <summary>
+    /// Initializes the corner points of the trapezoid.
+    /// </summary>
+    private void InitializePoints()
     {
-        get
-        {
-            var start = $"M {TopLeft.X + TopCornerRadius} {1 - TopLeft.Y}";
-            var top = $"L {TopRight.X - TopCornerRadius} {1 - TopRight.Y}";
-            var topRightCorner =
-                $"Q {TopRight.SvgPoint} {Lerp(TopRight, BottomRight, TopCornerRadius).SvgPoint}";
-            var right =
-                $"L {Lerp(BottomRight, TopRight, BottomCornerRadius).SvgPoint}";
-            var bottomRightCorner =
-                $"Q {BottomRight.SvgPoint} {Lerp(BottomRight, BottomLeft, BottomCornerRadius).SvgPoint}";
-            var bottom = $"L {BottomLeft.X} {1 - BottomLeft.Y}";
-            var left = $"L {TopLeft.X} {1 - TopLeft.Y}";
-            var trapezoid =
-                $"{start}\n {top}\n {topRightCorner}\n {right}\n {bottomRightCorner}\n {bottom}\n {left}\n";
-            return trapezoid;
-        }
+        TopLeft = new Point((1 - TopWidth) / 2, 1);
+        TopRight = new Point(1 - (1 - TopWidth) / 2, 1);
+        BottomLeft = new Point((1 - BottomWidth) / 2, 0);
+        BottomRight = new Point(1 - (1 - BottomWidth) / 2, 0);
     }
 
-    private Point Lerp(Point p1, Point p2, float t)
+    /// <summary>
+    /// Adjusts corner radius according to the width-to-height ratio.
+    /// </summary>
+    public float AdjustedCornerRadius(float cornerRadius) =>
+        cornerRadius * HeightToWidthRatio;
+
+    /// <summary>
+    /// Generates the full SVG path for the rounded trapezoid.
+    /// </summary>
+    public string SvgPath =>
+        $"{TopPath}\n{TopRightCornerPath}\n{RightPath}\n" +
+        $"{BottomRightCornerPath}\n{BottomCornerPath}\n" +
+        $"{BottomLeftCornerPath}\n{LeftPath}\n{TopLeftCornerPath}";
+
+    private string TopPath =>
+        $"M {TopLeft.X + AdjustedCornerRadius(TopCornerRadius)} 0 L {TopRight.X -
+            AdjustedCornerRadius(TopCornerRadius)} {1 - TopRight.Y}";
+
+    private string TopRightCornerPath =>
+        $"Q {TopRight.SvgPoint} {Lerp(TopRight, BottomRight,
+            TopCornerRadius).SvgPoint}";
+
+    private string RightPath =>
+        $"L {Lerp(BottomRight, TopRight, BottomCornerRadius).SvgPoint}";
+
+    private string BottomRightCornerPath =>
+        $"Q {BottomRight.SvgPoint} {Lerp(BottomRight, BottomLeft,
+            AdjustedCornerRadius(BottomCornerRadius)).SvgPoint}";
+
+    private string BottomCornerPath =>
+        $"L {BottomLeft.X + AdjustedCornerRadius(BottomCornerRadius)} {1 -
+            BottomLeft.Y}";
+
+    private string BottomLeftCornerPath =>
+        $"Q {BottomLeft.SvgPoint} {Lerp(BottomLeft, TopLeft,
+            BottomCornerRadius).SvgPoint}";
+
+    private string LeftPath =>
+        $"L {Lerp(TopLeft, BottomLeft, TopCornerRadius).SvgPoint}";
+
+    private string TopLeftCornerPath =>
+        $"Q {TopLeft.SvgPoint} {Lerp(TopLeft, TopRight,
+            AdjustedCornerRadius(TopCornerRadius)).SvgPoint}";
+
+    /// <summary>
+    /// Linearly interpolates between two points.
+    /// </summary>
+    private static Point Lerp(Point p1, Point p2, float t)
     {
         var x = p1.X + (p2.X - p1.X) * t;
         var y = p1.Y + (p2.Y - p1.Y) * t;
         return new Point(x, y);
     }
 
-    public class Point
+    public class Point(float x, float y)
     {
-        public Point(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
+        public float X { get; set; } = x;
+        public float Y { get; set; } = y;
 
-        public float X { get; set; }
-        public float Y { get; set; }
-
+        /// <summary>
+        /// Returns a formatted string for the SVG coordinate.
+        /// </summary>
         public string SvgPoint => $"{X} {1 - Y}";
     }
 }

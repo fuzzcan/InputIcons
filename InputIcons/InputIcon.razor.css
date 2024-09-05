@@ -5,7 +5,6 @@
 
 .input-icons__key {
     display: inline-block;
-    padding: .2em .5em .7em .5em;
     overflow: hidden;
     position: relative;
     clip-path: url("#roundedTrapezoid");

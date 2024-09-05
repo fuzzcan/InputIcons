@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using InputIcons.Utilities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 
 namespace InputIcons;
 
@@ -46,21 +47,27 @@ public partial class InputIcon
     [Parameter] public ColorScheme? ColorScheme { get; set; }
     [Parameter] public float FontWidthEm { get; set; } = 0.55f;
 
-    private RoundedTrapezoid Trapezoid => new(.9f,
-        1f, .3f, .2f);
 
+    private Guid _trapezoidGuid = Guid.NewGuid();
     private EmUnit FaceWidth => new((Text.Length + 2) * FontWidthEm);
-
     private string FaceWidthCss => $"width:{FaceWidth.Css};";
     private EmUnit FaceHeight => new(FontWidthEm * 3);
     private string FaceHeightCss => $"height:{FaceHeight.Css}";
 
-    private EmUnit BaseSidePadding = new(.5f);
+    private EmUnit SidePadding = new(.4f);
     private EmUnit TopPadding = new(.2f);
-    private EmUnit BottomPadding = new(.5f);
+    private EmUnit BottomPadding = new(.9f);
 
-    public float TotalWidth => FaceWidth + (BaseSidePadding * 2);
+    private RoundedTrapezoid Trapezoid => new(.0f,
+        1f, .4f, .15f,
+        (float)HeightToWidthRatio);
+
+    private string BasePadding =>
+        $"padding: {TopPadding.Css} {SidePadding.Css} {BottomPadding.Css} {SidePadding.Css};";
+
+    public float TotalWidth => FaceWidth + (SidePadding * 2);
     public float TotalHeight => FaceHeight + TopPadding + BottomPadding;
+    public double HeightToWidthRatio => TotalHeight / TotalWidth;
 
     protected override void OnInitialized()
     {

@@ -39,7 +39,7 @@ public class ColorScheme
         $"box-shadow: inset -.2em -.2em .4em {Darker.Css};";
 
     public string FaceGradientCss =>
-        $"background: linear-gradient(135deg, {Neutral.Css}, {Lighter.Css});";
+        $"background: linear-gradient(135deg, {Dark.Css}, {Lighter.Css});";
 
     public string FaceShadowCss =>
         $"box-shadow: 0 0 .3em {Lighter.Css}";
@@ -48,9 +48,9 @@ public class ColorScheme
     {
         get
         {
-            var inner = $"inset 0 0 .2em {Lighter.Css}";
+            var inner = $"inset 0 0 .3em {Light.Css}";
             var outer = $".0em .0em .2em {Lighter.Css}";
-            var bottomRight = $".1em .1em .3em {Neutral.Css}";
+            var bottomRight = $".1em .1em .3em {Light.Css}";
             return $"box-shadow: {inner}, {outer}, {bottomRight};";
         }
     }

@@ -1,4 +1,8 @@
-﻿<div class="@BaseCss" style="@ColorScheme?.BaseGradientCss">
+﻿<div class="@BaseCss" style="@ColorScheme?.BaseGradientCss @BasePadding 
+clip-path: url('#@_trapezoidGuid.ToString()');"
+     widthToHeightRatio="@HeightToWidthRatio"
+     topWidth="@Trapezoid.TopWidth" oldTopWidth="@Trapezoid.OldTopWidth"
+     topLeft="@Trapezoid.TopLeft.X">
     <div class="@FaceCss @FaceRoundness"
          style="@ColorScheme?.FaceGradientCss @FaceWidthCss @FaceHeightCss">
         <div class="@KeyLayer @FaceRoundness" style="@ColorScheme?.FaceRimCss"></div>
@@ -14,7 +18,7 @@
 </div>
 <svg width="0" height="0">
     <defs>
-        <clipPath id="roundedTrapezoid" clipPathUnits="objectBoundingBox">
+        <clipPath id="@_trapezoidGuid.ToString()" clipPathUnits="objectBoundingBox">
             <path d="@Trapezoid.SvgPath"/>
         </clipPath>
     </defs>
